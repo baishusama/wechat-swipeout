@@ -1,0 +1,7 @@
+{
+  "prettier.semi": false,
+  "prettier.trailingComma": "es5",
+  "prettier.tabWidth": 2,
+  "deepscan.ignoreConfirmWarning": true,
+  "editor.formatOnSave": false
+}

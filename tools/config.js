@@ -36,14 +36,13 @@ module.exports = {
     target: 'node',
     externals: [nodeExternals()], // ignore node_modules
     module: {
-      rules: [{
-        test: /\.js$/i,
-        use: [
-          'babel-loader',
-          'eslint-loader'
-        ],
-        exclude: /node_modules/
-      }],
+      rules: [
+        {
+          test: /\.js$/i,
+          use: ['babel-loader', 'eslint-loader'],
+          exclude: /node_modules/,
+        },
+      ],
     },
     resolve: {
       modules: [src, 'node_modules'],
@@ -51,7 +50,7 @@ module.exports = {
     },
     plugins: [
       new webpack.DefinePlugin({}),
-      new webpack.optimize.LimitChunkCountPlugin({maxChunks: 1}),
+      new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
     ],
     optimization: {
       minimize: false,
@@ -59,8 +58,8 @@ module.exports = {
     // devtool: 'nosources-source-map', // source map for js
     performance: {
       hints: 'warning',
-      assetFilter: assetFilename => assetFilename.endsWith('.js')
-    }
+      assetFilter: assetFilename => assetFilename.endsWith('.js'),
+    },
   },
 
   copy: ['./wxml', './wxss', './wxs', './images'], // will copy to dist
