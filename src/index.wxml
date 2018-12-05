@@ -10,12 +10,12 @@
     </view>
   </view>
   <!-- FIXME: https://developers.weixin.qq.com/miniprogram/dev/component/movable-view.html -->
-  <movable-view x="-{{testX}}" class="__wechat-swipeout_view" direction="horizontal" style="width: {{totalWidth}}rpx; height: {{height}}rpx;" out-of-bounds="{{canBeOut}}" inertia bind:touchstart="onTouchStart" bind:touchend="onTouchEnd" bind:change="onChange">
+  <movable-view x="{{testX}}" class="__wechat-swipeout_view" direction="horizontal" style="width: {{totalWidth}}rpx; height: {{height}}rpx;" out-of-bounds="{{canBeOut}}" inertia bind:touchstart="onTouchStart" bind:touchend="onTouchEnd" bind:change="onChange">
     <!-- 左侧按钮 -->
     <view wx:if="{{leftButtons && !isLeftSticked}}" class="__wechat-swipeout_left" style="width: {{leftWidth}}rpx; height: {{height}}rpx;">
       <view class="__wechat-swipeout_left-content" style="width: {{leftVisibleWidth}}px; height: {{height}}rpx;">
         <view wx:for="{{leftButtons}}" wx:for-item="btn" wx:key="{{index}}" class="button-wrapper" style="flex-grow: {{btn.width}};">
-          <view class="button" bind:touchstart="toggleBackgroundColor" bind:touchend="toggleBackgroundColor" data-key="leftButtons" bind:tap="onButtonPress" data-hash="{{btn.hash}}" style="width: {{btn.width}}rpx; line-height: {{height}}rpx; color: {{btn.color}}; background-color: {{btn.backgroundColor}};">
+          <view class="button" bind:touchstart="toggleBackgroundColor" bind:touchend="toggleBackgroundColor" data-key="leftButtons" bind:tap="onButtonPress" data-hash="{{btn.hash}}" style="width: {{btn.width}}rpx; line-height: {{height}}rpx; color: {{btn.color}}; background-color: {{btn.backgroundColor}}; z-index: {{leftButtons.length - index}};">
             {{btn.text}}
           </view>
         </view>

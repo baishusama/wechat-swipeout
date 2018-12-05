@@ -74,7 +74,7 @@ Component({
     isLeftSticked: false, // (px) 左侧吸边状态
     isRightSticked: false, // (px) 右侧吸边状态
     canBeOut: true, // FIXME: enhance ???
-    testX: 45, // TODO:FIXME: 默认偏移位置
+    testX: -100, // TODO:FIXME: 默认偏移位置
   },
   lifetimes: {
     ready() {
@@ -111,6 +111,10 @@ Component({
             return button
           })
 
+          console.log('[test] updateButtons, data :', {
+            [buttonsKey]: buttons,
+            [widthKey]: sideTotalWidth,
+          }) // TODO: test to del
           this.setData({
             [buttonsKey]: buttons,
             [widthKey]: sideTotalWidth,
@@ -156,11 +160,17 @@ Component({
             widthUnknownButtons.forEach(button => {
               button.width = restButtonWidth
             })
+            console.log('[test] undefined exist, data :', {
+              [buttonsKey]: widthUnknownButtons,
+            }) // TODO: test to del
             this.setData({
               [buttonsKey]: widthUnknownButtons,
             })
           } else if (sideTotalWidth !== this.data[widthKey]) {
             // 如果不存在未设置宽度的按钮，且宽度不完全匹配，那么调整宽度到正合适
+            console.log('[test] width unmatch, data :', {
+              [widthKey]: sideTotalWidth,
+            }) // TODO: test to del
             this.setData({
               [widthKey]: sideTotalWidth,
             })

@@ -31,6 +31,11 @@
   height: 100%;
 }
 
+/* 需要对左侧做向右对齐 */
+.@{prefix}left-content {
+  float: right;
+}
+
 .button-wrapper {
   /* overflow-x: hidden; */
   position: relative;
@@ -39,6 +44,11 @@
 .button {
   position: absolute;
   top: 0;
-  left: 0;
   text-align: center;
+}
+.@{prefix}left .button {
+  right: 0;
+}
+.@{prefix}right .button {
+  left: 0;
 }
