@@ -1,7 +1,8 @@
 {
-  "prettier.semi": false,
-  "prettier.trailingComma": "es5",
-  "prettier.tabWidth": 2,
   "deepscan.ignoreConfirmWarning": true,
-  "editor.formatOnSave": false
+  "editor.formatOnSave": false,
+  "editor.tabSize": 2,
+  "prettier.tabWidth": 2,
+  "prettier.semi": false,
+  "prettier.trailingComma": "es5"
 }
