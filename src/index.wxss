@@ -1,3 +1,25 @@
-.index {
-  color: green;
+@prefix: __wechat-swipeout_;
+
+.@{prefix}view {
+  display: flex;
+}
+
+.@{prefix}left-content ,
+.@{prefix}right-content {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch; 
+  height: 100%;
+}
+
+.button-wrapper {
+  /* overflow-x: hidden; */
+  position: relative;
+}
+
+.button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
 }
