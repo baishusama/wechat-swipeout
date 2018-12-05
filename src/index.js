@@ -52,12 +52,17 @@ Component({
       type: Array,
       value: null,
     },
+    /* 样式/状态 */
+    backgroundColor: {
+      type: String,
+      value: ''
+    }
   },
   data: {
     totalWidth: WINDOW_W, // (rpx) （包括未显示的按钮的）总宽度，默认全屏宽度
     leftVisibleWidth: 0, // (px) 左侧可视宽度
     rightVisibleWidth: 0, // (px) 右侧可视宽度
-    canBeOut: false, // FIXME: enhance ???
+    canBeOut: true, // FIXME: enhance ???
   },
   lifetimes: {
     ready() {

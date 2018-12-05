@@ -1,4 +1,4 @@
-<movable-area class="__wechat-swipeout_area" style="width: {{width}}rpx; height: {{height}}rpx;">
+<movable-area class="__wechat-swipeout_area" style="width: {{width}}rpx; height: {{height}}rpx; background-color: {{backgroundColor}};">
   <!-- FIXME: https://developers.weixin.qq.com/miniprogram/dev/component/movable-view.html -->
   <movable-view x="{{-leftWidth}}" class="__wechat-swipeout_view" direction="horizontal" style="width: {{totalWidth}}rpx; height: {{height}}rpx;" out-of-bounds="canBeOut" inertia bind:touchstart="onTouchStart" bind:touchend="onTouchEnd" bind:change="onChange">
     <!-- 左侧按钮 -->

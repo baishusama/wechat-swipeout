@@ -25,9 +25,9 @@ Page({
       },
       {
         hash: 'cancel',
-        backgroundColor: '#fff',
-        color: '#f00',
-        underlayColor: '#ddd',
+        backgroundColor: 'gold',
+        color: '#fff',
+        underlayColor: 'orange',
         text: 'x',
         // width: 150, // undefined then will use specific or default width
       },

@@ -1,5 +1,5 @@
 <!-- demo's index.wxml -->
-<!-- <swipeout height="300" left-buttons="{{leftButtonList}}" right-buttons="{{rightButtonList}}" bind:press="onSwipeoutPress"> -->
-<swipeout height="300" right-buttons="{{rightButtonList}}" bind:press="onSwipeoutPress">
+<!-- <swipeout height="300" left-buttons="{{leftButtonList}}" right-buttons="{{rightButtonList}}" background-color="black" bind:press="onSwipeoutPress"> -->
+<swipeout height="300" right-buttons="{{rightButtonList}}" background-color="black" bind:press="onSwipeoutPress">
   <view class="main-content">Hello, swipeout!</view>
 </swipeout>
