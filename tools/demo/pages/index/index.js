@@ -13,6 +13,14 @@ Page({
         text: 'share',
         width: 150,
       },
+      {
+        hash: 'love',
+        backgroundColor: 'pink',
+        color: '#fff',
+        underlayColor: 'deeppink',
+        text: 'love',
+        // width: 150,
+      },
     ],
     rightButtonList: [
       {
