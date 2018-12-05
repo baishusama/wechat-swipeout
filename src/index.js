@@ -52,17 +52,29 @@ Component({
       type: Array,
       value: null,
     },
+    // 贴边选项
+    stickToLeftEdge: {
+      type: Boolean,
+      value: false
+    },
+    stickToRightEdge: {
+      type: Boolean,
+      value: false
+    },
     /* 样式/状态 */
     backgroundColor: {
       type: String,
       value: ''
-    }
+    },
   },
   data: {
     totalWidth: WINDOW_W, // (rpx) （包括未显示的按钮的）总宽度，默认全屏宽度
     leftVisibleWidth: 0, // (px) 左侧可视宽度
     rightVisibleWidth: 0, // (px) 右侧可视宽度
+    isLeftSticked: false, // (px) 左侧吸边状态
+    isRightSticked: false, // (px) 右侧吸边状态
     canBeOut: true, // FIXME: enhance ???
+    testX: 45, // TODO:FIXME: 默认偏移位置
   },
   lifetimes: {
     ready() {
@@ -181,33 +193,55 @@ Component({
     onTouchEnd() { },
     // FIXME: enhance ??? 节流？防抖？
     onChange(e) {
-      const x = e.detail.x
-      console.log('[test] onChange, x :', x) // TODO: test to del
+      const originalX = e.detail.x
+      const offsetX = this.data.leftWidth ? Math.floor(this.data.leftWidth / 750 * WINDOW_W) : 0
+      const x = originalX + offsetX
+      // TODO: test to del
+      console.log(`[test] onChange, original x is ${originalX} ; x is ${x}`)
 
-      if (x < 0 && this.data.rightButtons) {
-        this.setData({
-          rightVisibleWidth: Math.min(-x, Math.floor(this.data.rightWidth / 750 * WINDOW_W))
-        })
-      } else if (x > 0 && this.data.leftButtons) {
-        this.setData({
-          rightVisibleWidth: Math.min(x, Math.floor(this.data.leftWidth / 750 * WINDOW_W))
-        })
-      } else {
-        if (this.data.leftButtons) {
-          this.setData({
-            leftVisibleWidth: 0
-          })
-        }
-        if (this.data.rightButtons) {
-          this.setData({
-            rightVisibleWidth: 0
-          })
+      const data = {}
+
+      if (this.data.rightButtons) {
+        if (x < 0) {
+          const rightWidthInIntPX = Math.floor(this.data.rightWidth / 750 * WINDOW_W)
+          data.rightVisibleWidth = Math.min(-x, rightWidthInIntPX)
+
+          // 判断贴边状态
+          const isRightSticked = -x > rightWidthInIntPX
+          if (this.data.stickToRightEdge && this.data.isRightSticked !== isRightSticked) {
+            data.isRightSticked = isRightSticked
+          }
+        } else {
+          data.rightVisibleWidth = 0
         }
       }
 
-      /* 比起用 js 来 setData 直接用 css 吧
+      if (this.data.leftButtons) {
+        if (x > 0) {
+          const leftWidthInIntPX = Math.floor(this.data.leftWidth / 750 * WINDOW_W)
+          data.leftVisibleWidth = Math.min(x, leftWidthInIntPX)
 
-      */
+          // 判断贴边状态
+          const isLeftSticked = x > leftWidthInIntPX
+          if (this.data.stickToLeftEdge && this.data.isLeftSticked !== isLeftSticked) {
+            data.isLeftSticked = isLeftSticked
+          }
+        } else {
+          data.leftVisibleWidth = 0
+        }
+      }
+
+      // 如果有变化才更新
+      let hasChanged = false
+      Object.keys(data).forEach(key => {
+        if (data[key] !== this.data[key]) {
+          hasChanged = true
+        }
+      })
+      if (hasChanged) {
+        console.log('[test] data :', data) // TODO: test to del
+        this.setData(data)
+      }
     },
     // 点击按钮时，触发 press 自定义事件
     onButtonPress(e) {

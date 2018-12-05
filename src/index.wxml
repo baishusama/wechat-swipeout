@@ -1,9 +1,19 @@
 <movable-area class="__wechat-swipeout_area" style="width: {{width}}rpx; height: {{height}}rpx; background-color: {{backgroundColor}};">
+  <!-- 吸附在左侧的按钮 -->
+  <view wx:if="{{leftButtons && isLeftSticked}}" class="__wechat-swipeout_left" style="width: {{leftWidth}}rpx; height: {{height}}rpx;">
+    <view class="__wechat-swipeout_left-content" style="width: {{leftVisibleWidth}}px; height: {{height}}rpx;">
+      <view wx:for="{{leftButtons}}" wx:for-item="btn" wx:key="{{index}}" class="button-wrapper" style="flex-grow: {{btn.width}};">
+        <view class="button" bind:touchstart="toggleBackgroundColor" bind:touchend="toggleBackgroundColor" data-key="leftButtons" bind:tap="onButtonPress" data-hash="{{btn.hash}}" style="width: {{btn.width}}rpx; line-height: {{height}}rpx; color: {{btn.color}}; background-color: {{btn.backgroundColor}};">
+          {{btn.text}}
+        </view>
+      </view>
+    </view>
+  </view>
   <!-- FIXME: https://developers.weixin.qq.com/miniprogram/dev/component/movable-view.html -->
-  <movable-view x="{{-leftWidth}}" class="__wechat-swipeout_view" direction="horizontal" style="width: {{totalWidth}}rpx; height: {{height}}rpx;" out-of-bounds="canBeOut" inertia bind:touchstart="onTouchStart" bind:touchend="onTouchEnd" bind:change="onChange">
+  <movable-view x="-{{testX}}" class="__wechat-swipeout_view" direction="horizontal" style="width: {{totalWidth}}rpx; height: {{height}}rpx;" out-of-bounds="{{canBeOut}}" inertia bind:touchstart="onTouchStart" bind:touchend="onTouchEnd" bind:change="onChange">
     <!-- 左侧按钮 -->
-    <view wx:if="{{leftButtons}}" class="__wechat-swipeout_left" style="width: {{leftWidth}}rpx;">
-      <view class="__wechat-swipeout_left-content" style="width: {{leftVisibleWidth}}px;">
+    <view wx:if="{{leftButtons && !isLeftSticked}}" class="__wechat-swipeout_left" style="width: {{leftWidth}}rpx; height: {{height}}rpx;">
+      <view class="__wechat-swipeout_left-content" style="width: {{leftVisibleWidth}}px; height: {{height}}rpx;">
         <view wx:for="{{leftButtons}}" wx:for-item="btn" wx:key="{{index}}" class="button-wrapper" style="flex-grow: {{btn.width}};">
           <view class="button" bind:touchstart="toggleBackgroundColor" bind:touchend="toggleBackgroundColor" data-key="leftButtons" bind:tap="onButtonPress" data-hash="{{btn.hash}}" style="width: {{btn.width}}rpx; line-height: {{height}}rpx; color: {{btn.color}}; background-color: {{btn.backgroundColor}};">
             {{btn.text}}
@@ -11,6 +21,8 @@
         </view>
       </view>
     </view>
+    <!-- 左侧按钮 占位符 -->
+    <view wx:if="{{leftButtons && isLeftSticked}}" class="__wechat-swipeout_left placeholder" style="width: {{leftWidth}}rpx; height: {{height}}rpx;"></view>
     <!-- 主要内容 -->
     <view class="__wechat-swipeout_main" style="width: {{width}}rpx;">
       <slot>
@@ -18,8 +30,8 @@
       </slot>
     </view>
     <!-- 右侧按钮 -->
-    <view wx:if="{{rightButtons}}" class="__wechat-swipeout_right" style="width: {{rightWidth}}rpx;">
-      <view class="__wechat-swipeout_right-content" style="width: {{rightVisibleWidth}}px;">
+    <view wx:if="{{rightButtons && !isRightSticked}}" class="__wechat-swipeout_right" style="width: {{rightWidth}}rpx; height: {{height}}rpx;">
+      <view class="__wechat-swipeout_right-content" style="width: {{rightVisibleWidth}}px; height: {{height}}rpx;">
         <view wx:for="{{rightButtons}}" wx:for-item="btn" wx:key="{{index}}" class="button-wrapper" style="flex-grow: {{btn.width}};">
           <view class="button" bind:touchstart="toggleBackgroundColor" bind:touchend="toggleBackgroundColor" data-key="rightButtons" bind:tap="onButtonPress" data-hash="{{btn.hash}}" style="width: {{btn.width}}rpx; line-height: {{height}}rpx; color: {{btn.color}}; background-color: {{btn.backgroundColor}};">
             {{btn.text}}
@@ -28,6 +40,16 @@
       </view>
     </view>
   </movable-view>
+  <!-- 吸附在右侧的按钮 -->
+  <view wx:if="{{rightButtons && isRightSticked}}" class="__wechat-swipeout_right sticked" style="width: {{rightWidth}}rpx; height: {{height}}rpx;">
+    <view class="__wechat-swipeout_right-content" style="width: {{rightVisibleWidth}}px; height: {{height}}rpx;">
+      <view wx:for="{{rightButtons}}" wx:for-item="btn" wx:key="{{index}}" class="button-wrapper" style="flex-grow: {{btn.width}};">
+        <view class="button" bind:touchstart="toggleBackgroundColor" bind:touchend="toggleBackgroundColor" data-key="rightButtons" bind:tap="onButtonPress" data-hash="{{btn.hash}}" style="width: {{btn.width}}rpx; line-height: {{height}}rpx; color: {{btn.color}}; background-color: {{btn.backgroundColor}};">
+          {{btn.text}}
+        </view>
+      </view>
+    </view>
+  </view>
 </movable-area>
 <!-- TODO: test to del -->
 <!-- <button bind:tap="test">测试</button> -->

@@ -1,9 +1,28 @@
 @prefix: __wechat-swipeout_;
 
+.@{prefix}auto {
+  position: relative;
+}
+
 .@{prefix}view {
   display: flex;
 }
 
+/**
+ * ImoNote: 直接 posa 无法实现。。（后来借助了冗余的 html）
+ */
+.@{prefix}left.sticked ,
+.@{prefix}right.sticked {
+  position: absolute;
+  top: 0;
+}
+.@{prefix}left.sticked {
+  left: 0;
+}
+.@{prefix}right.sticked {
+  right: 0;
+}
+ 
 .@{prefix}left-content ,
 .@{prefix}right-content {
   display: flex;
