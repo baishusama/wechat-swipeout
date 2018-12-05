@@ -23,7 +23,7 @@ module.exports = {
   demoDist,
 
   wxss: {
-    less: false, // compile wxss with less
+    less: true, // compile wxss with less
     sourcemap: false, // source map for less
   },
 
