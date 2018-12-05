@@ -1,13 +1,71 @@
-# miniprogram-custom-component
+# Wechat Swipeout
+
+## API
+
+- Component props
+
+  - 组件状态：
+
+    - [ ] `disabled`
+    - [ ] `sensitivity`
+    - ~~`style`~~
+
+  - 行为事件：
+
+    - [ ] `autoClose`
+    - [ ] `close`
+    - [ ] `onClose`
+    - [ ] `onOpen`
+    - ~~`scroll`~~
+
+  - 主区域/组件整体：
+
+    - [x] `width` 组件主区域宽度
+    - [x] `height` 组件高度
+    - [ ] `backgroundColor` 组件背景色
+
+  - 两侧按钮：
+
+    - [x] `(left|right)ButtonWidth` 两侧按钮列表
+    - [x] `(left|right)Width` 两侧按钮列表
+    - [x] `(left|right)Buttons` 两侧按钮列表
+
+  - Button props
+
+    - [x] `hash`
+    - [x] `backgroundColor`
+    - [x] `color`
+    - [x] `underlayColor`
+    - [x] `text`
+    - [x] `width`
+    - [ ] `disabled`
+    - ~~`type`~~
+    - ~~`component`~~
+
+## 说明
+
+inspired by [miniprogram-slide-view](https://github.com/wechat-miniprogram/slide-view), [react-native-swipeout](https://github.com/dancormier/react-native-swipeout)
+
+* basic:
+
+  - [ ] movable
+
+* enhance:
+
+  - [ ] style: 按钮为遮盖样式
+  - [ ] behavior: 可设置自动复位
+  - [ ] layout: left middle right
+
+## miniprogram-custom-component
 
 小程序自定义组件脚手架
 
-## 使用
+### 使用
 
 * 使用[命令行工具](https://github.com/wechat-miniprogram/miniprogram-cli)进行初始化
 * 直接从 github 上 clone 下来
 
-## 开发
+### 开发
 
 1. 安装依赖：
 
@@ -38,7 +96,7 @@ npm run watch
 * 内置支持多入口构建，如若需要可自行调整 tools/config.js 配置文件的 entry 字段。
 * 默认开启 eslint，可自行调整规则或在 tools/config.js 中注释掉 eslint-loader 行来关闭此功能。
 
-## 发布
+### 发布
 
 > ps: 发布前得确保已经执行构建，小程序 npm 包只有构建出来的目录是真正被使用到的。
 
@@ -65,7 +123,7 @@ npm publish
 
 > PS：一些开发者在开发过程中可能修改过 npm 的源，所以当进行登录或发布时需要注意要将源切回 npm 的源。
 
-## 目录结构
+### 目录结构
 
 以下为推荐使用的目录结构，如果有必要开发者也可以自行做一些调整:
 
@@ -93,7 +151,7 @@ npm publish
 
 > PS：对外暴露的 js 模块/自定义组件请放在 src 目录下，不宜放置在过深的目录。另外新增的暴露模块需要在 tools/config.js 的 entry 字段中补充，不然不会进行构建。
 
-## 测试
+### 测试
 
 * 执行测试用例：
 
@@ -111,7 +169,7 @@ npm run coverage
 
 > 目前测试框架仍有部分自定义组件的功能不支持（可参考测试工具包使用文档中的 TODO 列表），后续会逐步进行支持。
 
-## 其他命令
+### 其他命令
 
 * 清空 miniprogram_dist 目录：
 
