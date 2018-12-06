@@ -218,32 +218,17 @@ Component({
     },
     /* // 记录 touch 初始位置
     onTouchStart() { this._startX = e.changedTouches[0].pageX }, */
-    // 自动归位
+    // touch 结束后滑动到位
     onTouchEnd() {
       // this._endX = e.changedTouches[0].pageX
       const { /* _startX, _endX, */ _leftThreshold, _rightThreshold } = this
 
-      // (px)
-      const leftAllShownX = 0
-      const rightAllShownX = (-this.data.leftWidth - this.data.rightWidth) / 750 * WINDOW_W
-      const mainAllShownX = -this.data.leftWidth / 750 * WINDOW_W
-
-      // // TODO: test to del
-      // console.log(`[test] onTouchEnd, L: ${this.data.leftVisibleWidth} >= ${_leftThreshold} ?`)
-      // console.log(`[test] onTouchEnd, R: ${this.data.rightVisibleWidth} >= ${_rightThreshold} ?`)
-
       if (this.data.leftVisibleWidth > _leftThreshold) {
-        this.setData({
-          offsetX: leftAllShownX
-        })
+        this.openLeft()
       } else if (this.data.rightVisibleWidth > _rightThreshold) {
-        this.setData({
-          offsetX: rightAllShownX
-        })
+        this.openRight()
       } else {
-        this.setData({
-          offsetX: mainAllShownX
-        })
+        this.close()
       }
     },
     // FIXME: enhance ??? 节流？防抖？
@@ -320,10 +305,7 @@ Component({
 
       // 自动关闭按钮
       if (this.data.autoClose) {
-        const mainAllShownX = -this.data.leftWidth / 750 * WINDOW_W // (px)
-        this.setData({
-          offsetX: mainAllShownX
-        })
+        this.close()
       }
 
       const eventDetail = { hash }
@@ -358,6 +340,25 @@ Component({
 
       this.setData({
         [key]: buttons
+      })
+    },
+    /* 供父组件调用的 */
+    close() {
+      const mainAllShownX = -this.data.leftWidth / 750 * WINDOW_W // (px)
+      this.setData({
+        offsetX: mainAllShownX
+      })
+    },
+    openLeft() {
+      const leftAllShownX = 0
+      this.setData({
+        offsetX: leftAllShownX
+      })
+    },
+    openRight() {
+      const rightAllShownX = (-this.data.leftWidth - this.data.rightWidth) / 750 * WINDOW_W
+      this.setData({
+        offsetX: rightAllShownX
       })
     },
     // // TODO: test to del
