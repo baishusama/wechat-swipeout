@@ -4,11 +4,11 @@
 
 .main-content {
   padding: 0 50rpx;
-  height: 160rpx;
-  line-height: 160rpx;
+  height: 120rpx;
+  line-height: 120rpx;
   color: #fff;
   background-color: #444;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 swipeout {

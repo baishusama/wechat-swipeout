@@ -1,27 +1,32 @@
 <!-- demo's index.wxml -->
 <!-- case: 左按钮 -->
-<swipeout class="swipeout" height="160" left-buttons="{{leftButtonList}}" background-color="black" bind:press="onSwipeoutPress">
+<swipeout class="swipeout" height="120" left-buttons="{{leftButtonList}}" background-color="black" bind:press="onSwipeoutPress">
   <view class="main-content">Swipeout: 左侧按钮</view>
 </swipeout>
 <!-- case: 右按钮 -->
-<swipeout class="swipeout" height="160" right-buttons="{{rightButtonList}}" auto-close="true" background-color="black" bind:press="onSwipeoutPress">
+<swipeout class="swipeout" height="120" right-buttons="{{rightButtonList}}" auto-close="true" background-color="black" bind:press="onSwipeoutPress">
   <view class="main-content">Swipeout: 右侧按钮 & 自动关闭</view>
 </swipeout>
+<swipeout class="swipeout" height="120" right-buttons="{{rightButtonList}}" auto-close="true" disabled="true" background-color="black" bind:press="onSwipeoutPress">
+  <view class="main-content">Swipeout: 右侧按钮 & 禁用</view>
+</swipeout>
 <!-- case: 左右均不吸附 -->
-<swipeout class="swipeout" height="160" left-buttons="{{leftButtonList}}" right-buttons="{{rightButtonList}}" stickToLeftEdge="{{false}}" stickToRightEdge="{{false}}" background-color="black" bind:press="onSwipeoutPress">
-  <view class="main-content">Swipeout: | ←-→ |</view>
+<swipeout class="swipeout" height="120" damping="20" friction="5" left-buttons="{{leftButtonList}}" right-buttons="{{rightButtonList}}" stickToLeftEdge="{{false}}" stickToRightEdge="{{false}}" background-color="black" bind:press="onSwipeoutPress">
+  <view class="main-content">Swipeout: | ←-→ |, d: 20, f: 5</view>
 </swipeout>
 <!-- case: 左不吸附，右吸附 -->
-<swipeout class="swipeout" height="160" left-buttons="{{leftButtonList}}" right-buttons="{{rightButtonList}}" stickToLeftEdge="{{false}}" stickToRightEdge="true" background-color="black" bind:press="onSwipeoutPress">
-  <view class="main-content">Swipeout: | ←- →|</view>
+<swipeout class="swipeout" height="120" damping="30" friction="10" left-buttons="{{leftButtonList}}" right-buttons="{{rightButtonList}}" stickToLeftEdge="{{false}}" stickToRightEdge="true" background-color="black" bind:press="onSwipeoutPress">
+  <view class="main-content">Swipeout: | ←- →|, d: 30, f: 10</view>
 </swipeout>
 <!-- case: 左吸附，右不吸附 -->
-<swipeout class="swipeout" height="160" left-buttons="{{leftButtonList}}" right-buttons="{{rightButtonList}}" stickToLeftEdge="true" stickToRightEdge="{{false}}" background-color="black" bind:press="onSwipeoutPress">
-  <view class="main-content">Swipeout: |← -→ |</view>
+<swipeout class="swipeout" height="120" damping="40" friction="15" left-buttons="{{leftButtonList}}" right-buttons="{{rightButtonList}}" stickToLeftEdge="true" stickToRightEdge="{{false}}" background-color="black" bind:press="onSwipeoutPress">
+  <view class="main-content">Swipeout: |← -→ |, d: 40, f: 15</view>
 </swipeout>
 <!-- case: 左右均吸附 -->
-<swipeout class="swipeout" height="160" left-buttons="{{leftButtonList}}" right-buttons="{{rightButtonList}}" stickToLeftEdge="true" stickToRightEdge="true" background-color="black" bind:press="onSwipeoutPress">
-  <view class="main-content">Swipeout: |← - →|</view>
+<swipeout class="swipeout" height="120" damping="50" friction="20" left-buttons="{{leftButtonList}}" right-buttons="{{rightButtonList}}" stickToLeftEdge="true" stickToRightEdge="true" background-color="black" bind:press="onSwipeoutPress">
+  <view class="main-content">Swipeout: |← - →|, d: 50, f: 20</view>
 </swipeout>
 <!-- 按钮 -->
+<button bind:tap="openAllSwipeoutLeft">打开所有 swipeout 左侧</button>
+<button bind:tap="openAllSwipeoutRight">打开所有 swipeout 右侧</button>
 <button bind:tap="closeAllSwipeout">关闭所有 swipeout</button>

@@ -62,6 +62,16 @@ Page({
   cancel() {
     console.log('[test] cancel, this :', this)
   },
+  // 打开所有 swipeout 组件左侧
+  openAllSwipeoutLeft(){
+    const compList = this.selectAllComponents('.swipeout')
+    compList.forEach(comp => comp.openLeft())
+  },
+  // 打开所有 swipeout 组件右侧
+  openAllSwipeoutRight(){
+    const compList = this.selectAllComponents('.swipeout')
+    compList.forEach(comp => comp.openRight())
+  },
   // 关闭（复位）所有 swipeout 组件
   closeAllSwipeout(){
     const compList = this.selectAllComponents('.swipeout')
