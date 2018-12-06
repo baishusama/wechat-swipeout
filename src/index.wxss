@@ -1,16 +1,22 @@
 @prefix: __wechat-swipeout_;
 
-.@{prefix}auto {
-  position: relative;
-}
-
+/* 整个滑块是个 flexbox */
 .@{prefix}view {
   display: flex;
 }
 
+/* ImoNote: <movable-area> 默认已经为 `position: relative;` 了 */
+/* .@{prefix}area {
+  position: relative;
+} */
+
 /**
- * ImoNote: 直接 posa 无法实现。。（后来借助了冗余的 html）
+ * ImoNote: HTML 结构和 QA
+ * @{prefix}area <- 默认已经 `position: relative;` 了
+ *   @{prefix}view <- 默认已经 `position: absolute;` 了
+ *     @{prefix}left <- 直接 `posa` 无法实现相对 area 绝对定位，因为 view 默认也 `posa` 了，最后借助了冗余的 html 来实现
  */
+/* 呈吸附样式的按钮 */
 .@{prefix}left.sticked ,
 .@{prefix}right.sticked {
   position: absolute;
@@ -23,6 +29,7 @@
   right: 0;
 }
  
+/* 左右侧的可视区域是个 flexbox */
 .@{prefix}left-content ,
 .@{prefix}right-content {
   display: flex;
@@ -31,16 +38,15 @@
   height: 100%;
 }
 
-/* 需要对左侧做向右对齐 */
+/* 特殊处理：对左侧可视区域向右对齐 */
 .@{prefix}left-content {
   float: right;
 }
 
+/* 呈遮盖样式的按钮 */
 .button-wrapper {
-  /* overflow-x: hidden; */
   position: relative;
 }
-
 .button {
   position: absolute;
   top: 0;

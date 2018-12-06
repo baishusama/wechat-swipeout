@@ -1,6 +1,6 @@
 <movable-area class="__wechat-swipeout_area" style="width: {{width}}rpx; height: {{height}}rpx; background-color: {{backgroundColor}};">
   <!-- 吸附在左侧的按钮 -->
-  <view wx:if="{{leftButtons && isLeftSticked}}" class="__wechat-swipeout_left" style="width: {{leftWidth}}rpx; height: {{height}}rpx;">
+  <view wx:if="{{leftButtons && isLeftSticked}}" class="__wechat-swipeout_left sticked" style="width: {{leftWidth}}rpx; height: {{height}}rpx;">
     <view class="__wechat-swipeout_left-content" style="width: {{leftVisibleWidth}}px; height: {{height}}rpx;">
       <view wx:for="{{leftButtons}}" wx:for-item="btn" wx:key="{{index}}" class="button-wrapper" style="flex-grow: {{btn.width}};">
         <view class="button" bind:touchstart="toggleBackgroundColor" bind:touchend="toggleBackgroundColor" data-key="leftButtons" bind:tap="onButtonPress" data-hash="{{btn.hash}}" style="width: {{btn.width}}rpx; line-height: {{height}}rpx; color: {{btn.color}}; background-color: {{btn.backgroundColor}};">
