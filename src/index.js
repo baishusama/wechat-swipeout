@@ -74,7 +74,8 @@ Component({
     isLeftSticked: false, // (px) 左侧吸边状态
     isRightSticked: false, // (px) 右侧吸边状态
     canBeOut: true, // FIXME: enhance ???
-    offsetX: 0, // TODO:FIXME: 默认偏移位置
+    offsetX: 0, // TODO:FIXME: (px) 默认偏移位置
+    useAnimation: false,
   },
   lifetimes: {
     attached() {
@@ -196,7 +197,12 @@ Component({
         totalWidth,
       })
     },
-
+    // 开启动画效果
+    setupAnimation() {
+      this.setData({
+        useAnimation: true
+      })
+    },
     onTouchStart(e) {
       console.log('[test] e.changedTouches[0] :', e.changedTouches[0])
     },
