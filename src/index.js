@@ -74,25 +74,26 @@ Component({
     isLeftSticked: false, // (px) 左侧吸边状态
     isRightSticked: false, // (px) 右侧吸边状态
     canBeOut: true, // FIXME: enhance ???
-    offsetX: 0, // TODO:FIXME: (px) 默认偏移位置
+    offsetX: 0, // (px) 默认偏移位置
     useAnimation: false,
   },
   lifetimes: {
     attached() {
-      this.initialize()
-      this.calculate()
+      this.initializeWidth()
+      this.calculateTotal()
+      this.prepareThreshold()
 
       // 初始化 offsetX
       if (this.data.leftWidth) {
         this.setData({
-          offsetX: -Math.floor(this.data.leftWidth / 750 * WINDOW_W)
+          offsetX: -this.data.leftWidth / 750 * WINDOW_W
         })
       }
     },
   },
   methods: {
     // 初始化宽度 FIXME: bug ??? 需要一个 setter 监听？再自动调用？
-    initialize() {
+    initializeWidth() {
       // type Direction = 'left' | 'right'
       const _initialize = direction => {
         const widthKey = `${direction}Width`
@@ -177,7 +178,7 @@ Component({
           }
         }
 
-        console.log('[test] attached, setData :', initData) // TODO: test to del
+        // console.log('[test] attached, setData :', initData) // TODO: test to del
         this.setData(initData)
       }
 
@@ -186,16 +187,23 @@ Component({
       _initialize('right')
     },
     // 计算总宽度
-    calculate() {
+    calculateTotal() {
       const leftW = this.data.leftWidth || 0
       const rightW = this.data.rightWidth || 0
       const totalWidth = leftW + this.data.width + rightW
       // TODO: test to del
-      console.log(`[test] calculate, totalWidth: ${totalWidth} = ${leftW} + ${this.data.width} + ${rightW}`)
+      console.log(`[test] calculateTotal, totalWidth: ${totalWidth} = ${leftW} + ${this.data.width} + ${rightW}`)
 
       this.setData({
         totalWidth,
       })
+    },
+    // 准备阈值
+    prepareThreshold() {
+      const leftWidthInIntPX = this.data.leftWidth / 750 * WINDOW_W
+      const rightWidthInIntPX = this.data.rightWidth / 750 * WINDOW_W
+      this._leftThreshold = leftWidthInIntPX / 2
+      this._rightThreshold = rightWidthInIntPX / 2
     },
     // 开启动画效果
     setupAnimation() {
@@ -203,23 +211,49 @@ Component({
         useAnimation: true
       })
     },
-    onTouchStart(e) {
-      console.log('[test] e.changedTouches[0] :', e.changedTouches[0])
+    /* // 记录 touch 初始位置
+    onTouchStart() { this._startX = e.changedTouches[0].pageX }, */
+    // 自动归位
+    onTouchEnd() {
+      // this._endX = e.changedTouches[0].pageX
+      const { /* _startX, _endX, */ _leftThreshold, _rightThreshold } = this
+
+      // (px)
+      const leftAllShownX = 0
+      const rightAllShownX = (-this.data.leftWidth - this.data.rightWidth) / 750 * WINDOW_W
+      const mainAllShownX = -this.data.leftWidth / 750 * WINDOW_W
+
+      // // TODO: test to del
+      // console.log(`[test] onTouchEnd, L: ${this.data.leftVisibleWidth} >= ${_leftThreshold} ?`)
+      // console.log(`[test] onTouchEnd, R: ${this.data.rightVisibleWidth} >= ${_rightThreshold} ?`)
+
+      if (this.data.leftVisibleWidth > _leftThreshold) {
+        this.setData({
+          offsetX: leftAllShownX
+        })
+      } else if (this.data.rightVisibleWidth > _rightThreshold) {
+        this.setData({
+          offsetX: rightAllShownX
+        })
+      } else {
+        this.setData({
+          offsetX: mainAllShownX
+        })
+      }
     },
-    onTouchEnd() { },
     // FIXME: enhance ??? 节流？防抖？
     onChange(e) {
+      // (px)
       const originalX = e.detail.x
-      const offset = this.data.leftWidth ? Math.floor(this.data.leftWidth / 750 * WINDOW_W) : 0
+      const offset = this.data.leftWidth ? this.data.leftWidth / 750 * WINDOW_W : 0
       const x = originalX + offset
-      // TODO: test to del
-      console.log(`[test] onChange, original x is ${originalX} ; x is ${x}`)
+      // console.log(`[test] onChange, original x is ${originalX} ; x is ${x}`) // TODO: test to del
 
       const data = {}
 
       if (this.data.rightButtons) {
         if (x < 0) {
-          const rightWidthInIntPX = Math.floor(this.data.rightWidth / 750 * WINDOW_W)
+          const rightWidthInIntPX = this.data.rightWidth / 750 * WINDOW_W
           data.rightVisibleWidth = Math.min(-x, rightWidthInIntPX)
 
           // 判断贴边状态
@@ -234,7 +268,7 @@ Component({
 
       if (this.data.leftButtons) {
         if (x > 0) {
-          const leftWidthInIntPX = Math.floor(this.data.leftWidth / 750 * WINDOW_W)
+          const leftWidthInIntPX = this.data.leftWidth / 750 * WINDOW_W
           data.leftVisibleWidth = Math.min(x, leftWidthInIntPX)
 
           // 判断贴边状态
@@ -255,7 +289,7 @@ Component({
         }
       })
       if (hasChanged) {
-        console.log('[test] onChange, hasChanged data :', data) // TODO: test to del
+        // console.log('[test] onChange, hasChanged data :', data) // TODO: test to del
         this.setData(data)
       }
     },
