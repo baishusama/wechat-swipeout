@@ -58,6 +58,14 @@ module.exports = {
       'error',
       'always'
     ],
+    'object-curly-newline': [
+      'error',
+      {
+        "ObjectPattern": { "multiline": true },
+        "ImportDeclaration": "never",
+        "ExportDeclaration": { "multiline": true, "minProperties": 3 }
+      }
+    ],
     'operator-linebreak': [
       'error',
       'after',
