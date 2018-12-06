@@ -12,8 +12,8 @@
 
   - 行为事件：
 
-    - [ ] `autoClose`
-    - [ ] `close`
+    - [x] `autoClose` 是否在按钮点击后自动关闭（复位）
+    - [x] `close`
     - [ ] `onClose`
     - [ ] `onOpen`
     - ~~`scroll`~~
@@ -22,7 +22,7 @@
 
     - [x] `width` 组件主区域宽度
     - [x] `height` 组件高度
-    - [ ] `backgroundColor` 组件背景色
+    - [x] `backgroundColor` 组件背景色
 
   - 两侧按钮：
 
