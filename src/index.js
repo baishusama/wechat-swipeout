@@ -66,11 +66,23 @@ Component({
       type: String,
       value: ''
     },
+    disabled: {
+      type: Boolean,
+      value: false
+    },
     /* 行为表现 */
     autoClose: {
       type: Boolean,
       value: false
-    }
+    },
+    damping: {
+      type: Number,
+      value: 30
+    },
+    friction: {
+      type: Number,
+      value: 10
+    },
   },
   data: {
     totalWidth: WINDOW_W, // (rpx) （包括未显示的按钮的）总宽度，默认全屏宽度
@@ -95,6 +107,9 @@ Component({
         })
       }
     },
+    ready() {
+      this.setupAnimation()
+    }
   },
   methods: {
     // 初始化宽度 FIXME: bug ??? 需要一个 setter 监听？再自动调用？
@@ -224,11 +239,11 @@ Component({
       const { /* _startX, _endX, */ _leftThreshold, _rightThreshold } = this
 
       if (this.data.leftVisibleWidth > _leftThreshold) {
-        this.openLeft()
+        this._openLeft()
       } else if (this.data.rightVisibleWidth > _rightThreshold) {
-        this.openRight()
+        this._openRight()
       } else {
-        this.close()
+        this._close()
       }
     },
     // FIXME: enhance ??? 节流？防抖？
@@ -305,7 +320,7 @@ Component({
 
       // 自动关闭按钮
       if (this.data.autoClose) {
-        this.close()
+        this._close()
       }
 
       const eventDetail = { hash }
@@ -342,24 +357,40 @@ Component({
         [key]: buttons
       })
     },
-    /* 供父组件调用的 */
-    close() {
+    /* 私有方法 */
+    _close() {
       const mainAllShownX = -this.data.leftWidth / 750 * WINDOW_W // (px)
       this.setData({
         offsetX: mainAllShownX
       })
     },
-    openLeft() {
+    _openLeft() {
       const leftAllShownX = 0
       this.setData({
         offsetX: leftAllShownX
       })
     },
-    openRight() {
+    _openRight() {
       const rightAllShownX = (-this.data.leftWidth - this.data.rightWidth) / 750 * WINDOW_W
       this.setData({
         offsetX: rightAllShownX
       })
+    },
+    /* 供父组件调用的 */
+    close() {
+      if (!this.data.disabled) {
+        this._close()
+      }
+    },
+    openLeft() {
+      if (!this.data.disabled) {
+        this._openLeft()
+      }
+    },
+    openRight() {
+      if (!this.data.disabled) {
+        this._openRight()
+      }
     },
     // // TODO: test to del
     // test() {
