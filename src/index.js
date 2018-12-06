@@ -66,6 +66,11 @@ Component({
       type: String,
       value: ''
     },
+    /* 行为表现 */
+    autoClose: {
+      type: Boolean,
+      value: false
+    }
   },
   data: {
     totalWidth: WINDOW_W, // (rpx) （包括未显示的按钮的）总宽度，默认全屏宽度
@@ -312,7 +317,14 @@ Component({
     // 点击按钮时，触发 press 自定义事件
     onButtonPress(e) {
       const hash = e.currentTarget.dataset.hash
-      console.log('[test] onPress, hash :', hash)
+
+      // 自动关闭按钮
+      if (this.data.autoClose) {
+        const mainAllShownX = -this.data.leftWidth / 750 * WINDOW_W // (px)
+        this.setData({
+          offsetX: mainAllShownX
+        })
+      }
 
       const eventDetail = { hash }
       const eventOption = {
@@ -320,7 +332,7 @@ Component({
       }
       this.triggerEvent('press', eventDetail, eventOption)
     },
-    // (点击|释放)按钮的时候，反转背景色
+    // (点击|释放)按钮的时候，反转背景色 FIXME: 存在 touch 之后 move view 颜色 toggle 不回来的 bug
     toggleBackgroundColor(e) {
       // TODO: test to del
       console.log('[test] toggleBackgroundColor, e :', e)

@@ -4,8 +4,8 @@
   <view class="main-content">Swipeout: 左侧按钮</view>
 </swipeout>
 <!-- case: 右按钮 -->
-<swipeout height="160" right-buttons="{{rightButtonList}}" background-color="black" bind:press="onSwipeoutPress">
-  <view class="main-content">Swipeout: 右侧按钮</view>
+<swipeout height="160" right-buttons="{{rightButtonList}}" auto-close="true" background-color="black" bind:press="onSwipeoutPress">
+  <view class="main-content">Swipeout: 右侧按钮 & 自动关闭</view>
 </swipeout>
 <!-- case: 左右均不吸附 -->
 <swipeout height="160" left-buttons="{{leftButtonList}}" right-buttons="{{rightButtonList}}" stickToLeftEdge="{{false}}" stickToRightEdge="{{false}}" background-color="black" bind:press="onSwipeoutPress">
