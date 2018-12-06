@@ -6,7 +6,7 @@ Component({
   // 选项
   options: {
     multipleSlots: true, // 使用多个 slot 时必须
-    // addGlobalClass: true
+    addGlobalClass: true
   },
   // 接口 (rpx)
   properties: {
@@ -73,9 +73,9 @@ Component({
     rightVisibleWidth: 0, // (px) 右侧可视宽度
     isLeftSticked: false, // (px) 左侧吸边状态
     isRightSticked: false, // (px) 右侧吸边状态
-    canBeOut: true, // FIXME: enhance ???
     offsetX: 0, // (px) 默认偏移位置
     useAnimation: false,
+    canBeOut: false, // 是否允许出界
   },
   lifetimes: {
     attached() {
@@ -198,7 +198,7 @@ Component({
         totalWidth,
       })
     },
-    // 准备阈值
+    // 准备阈值 (px)
     prepareThreshold() {
       const leftWidthInIntPX = this.data.leftWidth / 750 * WINDOW_W
       const rightWidthInIntPX = this.data.rightWidth / 750 * WINDOW_W
@@ -242,6 +242,7 @@ Component({
       }
     },
     // FIXME: enhance ??? 节流？防抖？
+    // 当滑动的时候，修改 按钮的 可视宽度 和 吸附状态
     onChange(e) {
       // (px)
       const originalX = e.detail.x
@@ -251,6 +252,7 @@ Component({
 
       const data = {}
 
+      // 如果右侧按钮存在，那么计算可视宽度和吸附状态
       if (this.data.rightButtons) {
         if (x < 0) {
           const rightWidthInIntPX = this.data.rightWidth / 750 * WINDOW_W
@@ -266,6 +268,7 @@ Component({
         }
       }
 
+      // 如果左侧按钮存在，那么计算可视宽度和吸附状态
       if (this.data.leftButtons) {
         if (x > 0) {
           const leftWidthInIntPX = this.data.leftWidth / 750 * WINDOW_W
@@ -281,11 +284,24 @@ Component({
         }
       }
 
-      // 如果有变化才更新
+      // 修改允许出界状态
+      /**
+       * ImoNote:
+       * 设置 canBeOut=false 的 case：
+       * - case1. 如果 originalX 很小，小到小于 -_leftThreshold 意味着主内容右边快要全部露出来
+       * - case2. 如果 originalX 很大，大到大于 -_rightThreshold 意味着主内容左边快要全部露出来
+       * 下式 !(case1 || case2) 即为 canBeOut=true 的情况
+       */
+      data.canBeOut = !((originalX < -this._leftThreshold && !this.data.rightWidth) ||
+        (originalX > -this._rightThreshold && !this.data.leftWidth))
+
+      // 删除 data 中没变化的属性，如果有变化才更新
       let hasChanged = false
       Object.keys(data).forEach(key => {
         if (data[key] !== this.data[key]) {
           hasChanged = true
+        } else {
+          delete data[key]
         }
       })
       if (hasChanged) {
