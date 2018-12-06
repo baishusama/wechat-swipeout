@@ -41,6 +41,15 @@ Page({
       },
     ],
   },
+  /**
+   * 生命周期
+   */
+  // onLoad() {},
+  // onShow() {},
+  // onReady() {},
+  /**
+   * 自定义的方法
+   */
   share() {
     console.log('[test] share, this :', this)
   },
@@ -52,6 +61,11 @@ Page({
   },
   cancel() {
     console.log('[test] cancel, this :', this)
+  },
+  // 关闭（复位）所有 swipeout 组件
+  closeAllSwipeout(){
+    const compList = this.selectAllComponents('.swipeout')
+    compList.forEach(comp => comp.close())
   },
   onSwipeoutPress({ detail }) {
     const { hash } = detail
