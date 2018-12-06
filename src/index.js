@@ -74,12 +74,19 @@ Component({
     isLeftSticked: false, // (px) 左侧吸边状态
     isRightSticked: false, // (px) 右侧吸边状态
     canBeOut: true, // FIXME: enhance ???
-    testX: -100, // TODO:FIXME: 默认偏移位置
+    offsetX: 0, // TODO:FIXME: 默认偏移位置
   },
   lifetimes: {
-    ready() {
+    attached() {
       this.initialize()
       this.calculate()
+
+      // 初始化 offsetX
+      if (this.data.leftWidth) {
+        this.setData({
+          offsetX: -Math.floor(this.data.leftWidth / 750 * WINDOW_W)
+        })
+      }
     },
   },
   methods: {
@@ -90,7 +97,7 @@ Component({
         const widthKey = `${direction}Width`
         const buttonWidthKey = `${direction}ButtonWidth`
         const buttonsKey = `${direction}Buttons`
-        const updateButtons = defaultWidth => {
+        const getInitData = defaultWidth => {
           let sideTotalWidth = 0
 
           const buttons = this.data[buttonsKey].map(button => {
@@ -111,25 +118,23 @@ Component({
             return button
           })
 
-          console.log('[test] updateButtons, data :', {
+          return {
             [buttonsKey]: buttons,
             [widthKey]: sideTotalWidth,
-          }) // TODO: test to del
-          this.setData({
-            [buttonsKey]: buttons,
-            [widthKey]: sideTotalWidth,
-          })
+          }
         }
+        let initData = null
 
         // 如果未传入按钮数组，那么不需要以下初始化！
         if (!this.data[buttonsKey]) {
           return
         }
 
-        if (this.data[buttonWidthKey]) {
-          // case1. 如果传入 (left|right)ButtonWidth 会重新计算 (left|right)Width
-          updateButtons(this.data[buttonWidthKey])
-        } else if (this.data[widthKey]) {
+        if (!this.data[widthKey]) {
+          // case1.1 如果传入 (left|right)ButtonWidth 会重新计算 (left|right)Width
+          // case1.2 如果什么都没有设置，根据最小值初始化按钮列表数据
+          initData = getInitData(this.data[buttonWidthKey] || MIN_BTN_W)
+        } else {
           // case2. 如果传入 (left|right)Width 会平均剩余给未设置宽度的按钮
           let sideTotalWidth = 0
           const widthUnknownButtons = this.data[buttonsKey].filter(button => {
@@ -160,25 +165,19 @@ Component({
             widthUnknownButtons.forEach(button => {
               button.width = restButtonWidth
             })
-            console.log('[test] undefined exist, data :', {
+            initData = {
               [buttonsKey]: widthUnknownButtons,
-            }) // TODO: test to del
-            this.setData({
-              [buttonsKey]: widthUnknownButtons,
-            })
+            }
           } else if (sideTotalWidth !== this.data[widthKey]) {
             // 如果不存在未设置宽度的按钮，且宽度不完全匹配，那么调整宽度到正合适
-            console.log('[test] width unmatch, data :', {
+            initData = {
               [widthKey]: sideTotalWidth,
-            }) // TODO: test to del
-            this.setData({
-              [widthKey]: sideTotalWidth,
-            })
+            }
           }
-        } else {
-          // case3. 如果什么都没有设置，根据最小值初始化按钮列表数据
-          updateButtons(MIN_BTN_W)
         }
+
+        console.log('[test] attached, setData :', initData) // TODO: test to del
+        this.setData(initData)
       }
 
       // 接口方式（非 slot 方式）
@@ -189,11 +188,12 @@ Component({
     calculate() {
       const leftW = this.data.leftWidth || 0
       const rightW = this.data.rightWidth || 0
+      const totalWidth = leftW + this.data.width + rightW
       // TODO: test to del
-      console.log(`[test] calculate, totalWidth: ${leftW + this.data.width + rightW} = ${leftW} + ${this.data.width} + ${rightW}`)
+      console.log(`[test] calculate, totalWidth: ${totalWidth} = ${leftW} + ${this.data.width} + ${rightW}`)
 
       this.setData({
-        totalWidth: leftW + this.data.width + rightW,
+        totalWidth,
       })
     },
 
@@ -204,8 +204,8 @@ Component({
     // FIXME: enhance ??? 节流？防抖？
     onChange(e) {
       const originalX = e.detail.x
-      const offsetX = this.data.leftWidth ? Math.floor(this.data.leftWidth / 750 * WINDOW_W) : 0
-      const x = originalX + offsetX
+      const offset = this.data.leftWidth ? Math.floor(this.data.leftWidth / 750 * WINDOW_W) : 0
+      const x = originalX + offset
       // TODO: test to del
       console.log(`[test] onChange, original x is ${originalX} ; x is ${x}`)
 
@@ -249,7 +249,7 @@ Component({
         }
       })
       if (hasChanged) {
-        console.log('[test] data :', data) // TODO: test to del
+        console.log('[test] onChange, hasChanged data :', data) // TODO: test to del
         this.setData(data)
       }
     },
