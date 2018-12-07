@@ -43,6 +43,7 @@
   float: right;
 }
 
+/* TODO:FIXME: 组件内部所有 className 都加上前缀，以防止样式的意外覆盖 */
 /* 呈遮盖样式的按钮 */
 .button-wrapper {
   position: relative;
@@ -50,11 +51,21 @@
 .button {
   position: absolute;
   top: 0;
-  text-align: center;
+  /* text-align: center; */
 }
 .@{prefix}left .button {
   right: 0;
 }
 .@{prefix}right .button {
   left: 0;
+}
+
+/* icon */
+.button {
+  display: flex;
+  justify-content: center;
+}
+.button .icon {
+  box-sizing: border-box;
+  width: 40rpx;
 }
