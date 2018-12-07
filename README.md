@@ -1,12 +1,47 @@
 # Wechat Swipeout
 
-> 关于小程序自定义组件的基础使用，详见[官方项目 miniprogram-custom-component 的说明](https://github.com/wechat-miniprogram/miniprogram-custom-component)
-
-## 说明
-
 Inspired by [miniprogram-slide-view](https://github.com/wechat-miniprogram/slide-view), [react-native-swipeout](https://github.com/dancormier/react-native-swipeout).
 
+## 效果
+
+TODO: 将于本周内（2018.12.09 前）制作上传，敬请期待～
+
+## 使用方法
+
+> 关于小程序自定义组件的使用，详见[官方项目说明](https://github.com/wechat-miniprogram/miniprogram-custom-component)。
+
+1. 安装 wechat-swipeout ：
+
+```
+npm i -S wechat-swipeout
+```
+
+2. 微信开发者工具 -> 工具 -> 构建 npm => 这步会生成 `miniprogram_npm/wechat-swipeout/index.(js|json|wxml|wxss)`
+3. 在需要使用本组件的页面/组件的 `*.json` 文件中，设置组件 alias 和路径：
+
+```json
+{
+  "usingComponents": {
+    "swipeout": "wechat-swipeout"
+  }
+}
+```
+
+4. `*.wxml` 文件中，可以使用 `swipeout`：
+
+```html
+<swipeout class="swipeout" height="120" right-buttons="{{rightButtonList}}" auto-close="true" background-color="black" bind:press="onSwipeoutPress">
+  <view class="main-content">Swipeout: 右侧按钮 & 自动关闭</view>
+</swipeout>
+```
+
+更多示例，请参考 [github repo](https://github.com/baishusama/wechat-swipeout) 的 [`tools/demo/pages/index/index.wxml`](https://github.com/baishusama/wechat-swipeout/blob/master/tools/demo/pages/index/index.wxml) 文件内容。
+
+具体接口参见 [API](#api) 小节。
+
 ## 概览
+
+主要目标和目前进度：
 
 * basic:
 
