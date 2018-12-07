@@ -50,6 +50,7 @@ npm i -S wechat-swipeout
 * enhance:
 
   - [x] style: 按钮为遮盖样式
+  - [x] style: 按钮可贴边
   - [ ] style: 按钮可禁用
   - [x] behavior: 可设置自动复位
   - [x] behavior: 也可手动关闭
@@ -58,6 +59,7 @@ npm i -S wechat-swipeout
 * fix bugs:
 
   - [ ] `underlayColor` 状态回不到 `backgroundColor`
+  - [ ] `stickTo(Left|Right)Edge` 时，继续拖拽存在抖动
 
 ## API
 
