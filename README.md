@@ -105,3 +105,7 @@ npm i -S wechat-swipeout
     - [ ] `disabled`
     - ~~`type`~~
     - ~~`component`~~
+
+## License
+
+This project is licensed under the MIT License
