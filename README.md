@@ -57,7 +57,7 @@ npm i -S wechat-swipeout
 
 * fix bugs:
 
-  - [ ] `underlayBackgroundColor` 状态回不到 `backgroundColor`
+  - [ ] `underlayColor` 状态回不到 `backgroundColor`
 
 ## API
 
@@ -91,13 +91,14 @@ npm i -S wechat-swipeout
     - [x] `(left|right)ButtonWidth` 两侧按钮列表
     - [x] `(left|right)Width` 两侧按钮列表
     - [x] `(left|right)Buttons` 两侧按钮列表
+    - [x] `stickTo(Left|Right)Edge` 按钮是否吸附边缘
 
   - Button props
 
     - [x] `hash` 必须：点击按钮（`press`）时会回传 hash，以此区分按钮并执行对应事件
     - [x] `className` 可选：类名，可用于微调样式
     - [x] `width` 可选：按钮的宽度，单位 rpx
-    - [x] `iconPath` 可选：可以设置 icon 的路径
+    - [x] `iconPath` 可选：可以设置 icon 的路径（注意组件构建后位于 `./miniprogram_npm/` 目录下，设置 `iconPath` 时需要考虑进去）
     - [x] `text` 可选：按钮的文字
     - [x] `color` 可选：按钮的字体颜色
     - [x] `backgroundColor` 必须：背景色

@@ -1,6 +1,6 @@
 {
     "name": "wechat-swipeout",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "author": "baishusama <baishusama@outlook.com>",
     "description": "A iOS-styled swipeout component for wechat, i.e. miniprogram.",
     "keywords": ["weixin", "wechat", "miniprogram", "swipeout"],
