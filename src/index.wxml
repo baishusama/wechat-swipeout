@@ -10,7 +10,7 @@
       </view>
     </view>
   </view>
-  <!-- FIXME: https://developers.weixin.qq.com/miniprogram/dev/component/movable-view.html -->
+  <!-- ImoNote: docs: https://developers.weixin.qq.com/miniprogram/dev/component/movable-view.html -->
   <movable-view class="__wechat-swipeout_view" direction="horizontal" x="{{offsetX}}" friction="{{friction}}" damping="{{damping}}" disabled="{{disabled}}" animation="{{useAnimation}}" inertia="{{useAnimation}}" out-of-bounds="{{canBeOut}}" style="width: {{totalWidth}}rpx; height: {{height}}rpx;" bind:touchstart="onTouchStart" bind:touchend="onTouchEnd" bind:change="onChange">
     <!-- 左侧按钮 -->
     <view wx:if="{{leftButtons && !isLeftSticked}}" class="__wechat-swipeout_left" style="width: {{leftWidth}}rpx; height: {{height}}rpx;">
@@ -55,5 +55,3 @@
     </view>
   </view>
 </movable-area>
-<!-- TODO: test to del -->
-<!-- <button bind:tap="test">测试</button> -->

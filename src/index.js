@@ -198,7 +198,7 @@ Component({
           }
         }
 
-        // console.log('[test] attached, setData :', initData) // TODO: test to del
+        // console.log('attached, setData :', initData) // TODO: test to del
         this.setData(initData)
       }
 
@@ -212,7 +212,7 @@ Component({
       const rightW = this.data.rightWidth || 0
       const totalWidth = leftW + this.data.width + rightW
       // TODO: test to del
-      console.log(`[test] calculateTotal, totalWidth: ${totalWidth} = ${leftW} + ${this.data.width} + ${rightW}`)
+      // console.log(`calculateTotal: ${totalWidth} = ${leftW} + ${this.data.width} + ${rightW}`)
 
       this.setData({
         totalWidth,
@@ -253,7 +253,7 @@ Component({
       const originalX = e.detail.x
       const offset = this.data.leftWidth ? this.data.leftWidth / 750 * WINDOW_W : 0
       const x = originalX + offset
-      // console.log(`[test] onChange, original x is ${originalX} ; x is ${x}`) // TODO: test to del
+      // console.log(`onChange, original x is ${originalX} ; x is ${x}`) // TODO: test to del
 
       const data = {}
 
@@ -310,7 +310,7 @@ Component({
         }
       })
       if (hasChanged) {
-        // console.log('[test] onChange, hasChanged data :', data) // TODO: test to del
+        // console.log('onChange, hasChanged data :', data) // TODO: test to del
         this.setData(data)
       }
     },
@@ -356,8 +356,7 @@ Component({
       })
 
       if (hasChanged) {
-        console.log('[test] toggleBackgroundColor()') // TODO: test to del
-
+        // console.log('toggleBackgroundColor()') // TODO: test to del
         this.setData({
           [key]: buttons
         })
@@ -398,14 +397,5 @@ Component({
         this._openRight()
       }
     },
-    // // TODO: test to del
-    // test() {
-    //   console.log('[test] ///=================')
-    //   console.log('[test] totalWidth :', this.data.totalWidth)
-    //   console.log('[test] rightButtonWidth :', this.data.rightButtonWidth)
-    //   console.log('[test] rightButtons :', this.data.rightButtons)
-    //   console.log('[test] rightWidth :', this.data.rightWidth)
-    //   console.log('[test] \\\\\\================')
-    // },
   },
 })
