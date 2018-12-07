@@ -6,7 +6,7 @@
 
 Inspired by [miniprogram-slide-view](https://github.com/wechat-miniprogram/slide-view), [react-native-swipeout](https://github.com/dancormier/react-native-swipeout).
 
-## 特色
+## 概览
 
 * basic:
 
@@ -15,8 +15,14 @@ Inspired by [miniprogram-slide-view](https://github.com/wechat-miniprogram/slide
 * enhance:
 
   - [x] style: 按钮为遮盖样式
+  - [ ] style: 按钮可禁用
   - [x] behavior: 可设置自动复位
+  - [x] behavior: 也可手动关闭
   - [x] layout: left middle right
+
+* fix bugs:
+
+  - [ ] `underlayBackgroundColor` 状态回不到 `backgroundColor`
 
 ## API
 
@@ -32,8 +38,9 @@ Inspired by [miniprogram-slide-view](https://github.com/wechat-miniprogram/slide
 
   - 行为事件：
 
-    - [x] `autoClose` 是否在按钮点击后自动关闭（复位）
-    - [x] `close`,`openLeft`,`openRight`
+    - [x] `press` 可绑定的事件：点击按钮时触发，会回传按钮数据中的 hash 字段
+    - [x] `autoClose` 表现：是否在按钮点击后自动关闭（复位）
+    - [x] `close`,`openLeft`,`openRight` 可调用的事件
     - [ ] `onClose`
     - [ ] `onOpen`
     - ~~`scroll`~~
@@ -52,12 +59,14 @@ Inspired by [miniprogram-slide-view](https://github.com/wechat-miniprogram/slide
 
   - Button props
 
-    - [x] `hash`
-    - [x] `backgroundColor`
-    - [x] `color`
-    - [x] `underlayColor`
-    - [x] `text`
-    - [x] `width`
+    - [x] `hash` 必须：点击按钮（`press`）时会回传 hash，以此区分按钮并执行对应事件
+    - [x] `className` 可选：类名，可用于微调样式
+    - [x] `width` 可选：按钮的宽度，单位 rpx
+    - [x] `iconPath` 可选：可以设置 icon 的路径
+    - [x] `text` 可选：按钮的文字
+    - [x] `color` 可选：按钮的字体颜色
+    - [x] `backgroundColor` 必须：背景色
+    - [x] `underlayColor` 必须：按钮被点击时的背景色
     - [ ] `disabled`
     - ~~`type`~~
     - ~~`component`~~
