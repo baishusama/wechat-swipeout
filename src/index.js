@@ -231,8 +231,8 @@ Component({
         useAnimation: true
       })
     },
-    /* // 记录 touch 初始位置
-    onTouchStart() { this._startX = e.changedTouches[0].pageX }, */
+    // 记录 touch 初始位置
+    onTouchStart() { /* this._startX = e.changedTouches[0].pageX */ },
     // touch 结束后滑动到位
     onTouchEnd() {
       // this._endX = e.changedTouches[0].pageX
@@ -331,21 +331,23 @@ Component({
     },
     // (点击|释放)按钮的时候，反转背景色 FIXME: 存在 touch 之后 move view 颜色 toggle 不回来的 bug
     toggleBackgroundColor(e) {
-      // TODO: test to del
-      console.log('[test] toggleBackgroundColor, e :', e)
+      let hasChanged = false
 
       const key = e.currentTarget.dataset.key // 决定哪侧 (left|right)Buttons
-      const hash = e.currentTarget.dataset.hash // 决定哪个按钮
+      const theHash = e.currentTarget.dataset.hash // 决定哪个按钮
       const buttons = this.data[key].map(button => {
+        const { hash, backgroundColor, underlayColor } = button
         // 对匹配的按钮做背景色的变化
-        if (button.hash === hash) {
+        if (hash === theHash && underlayColor !== backgroundColor) {
+          hasChanged = true
+          // ImoNote: 这里使用 `{ ...button, // 覆盖选项 }` 的写法会编译错误
           return Object.assign(
             {},
             button,
             // 交换背景色
             {
-              backgroundColor: button.underlayColor,
-              underlayColor: button.backgroundColor,
+              backgroundColor: underlayColor,
+              underlayColor: backgroundColor,
             }
           )
         }
@@ -353,9 +355,13 @@ Component({
         return button
       })
 
-      this.setData({
-        [key]: buttons
-      })
+      if (hasChanged) {
+        console.log('[test] toggleBackgroundColor()') // TODO: test to del
+
+        this.setData({
+          [key]: buttons
+        })
+      }
     },
     /* 私有方法 */
     _close() {
