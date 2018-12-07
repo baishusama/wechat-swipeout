@@ -1,7 +1,9 @@
 {
     "name": "wechat-swipeout",
-    "version": "1.0.0",
+    "version": "1.0.3",
+    "author": "baishusama <baishusama@outlook.com>",
     "description": "A iOS-styled swipeout component for wechat, i.e. miniprogram.",
+    "keywords": ["weixin", "wechat", "miniprogram", "swipeout"],
     "main": "miniprogram_dist/index.js",
     "scripts": {
         "dev": "gulp dev --develop",
@@ -29,9 +31,8 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/wechat-miniprogram/miniprogram-custom-component.git"
+        "url": "https://github.com/baishusama/wechat-swipeout.git"
     },
-    "author": "baishusama",
     "license": "MIT",
     "devDependencies": {
         "babel-core": "^6.26.3",
