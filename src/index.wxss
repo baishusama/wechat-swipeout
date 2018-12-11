@@ -1,4 +1,4 @@
-@prefix: __wechat-swipeout_;
+@prefix: wechat-swipeout__;
 
 /* 整个滑块是个 flexbox */
 .@{prefix}view {

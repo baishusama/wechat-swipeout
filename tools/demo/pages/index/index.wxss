@@ -25,10 +25,10 @@ swipeout {
 }
 
 /* 用户可以根据自己需要微调 */
-.swipeout .__wechat-swipeout_icon {
+.swipeout .wechat-swipeout__icon {
   padding-top: 3rpx;
 }
 /* .className */
-.love-button .__wechat-swipeout_icon {
+.love-button .wechat-swipeout__icon {
   margin-right: 10rpx;
 }

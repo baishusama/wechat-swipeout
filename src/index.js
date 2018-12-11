@@ -1,4 +1,4 @@
-// const prefix = '__wechat-swipeout_'
+// const prefix = 'wechat-swipeout__'
 const MIN_BTN_W = 100 // (rpx)
 const WINDOW_W = wx.getSystemInfoSync().windowWidth // (px)
 
