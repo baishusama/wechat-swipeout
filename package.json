@@ -3,7 +3,12 @@
     "version": "1.0.4",
     "author": "baishusama <baishusama@outlook.com>",
     "description": "A iOS-styled swipeout component for wechat, i.e. miniprogram.",
-    "keywords": ["weixin", "wechat", "miniprogram", "swipeout"],
+    "keywords": [
+        "weixin",
+        "wechat",
+        "miniprogram",
+        "swipeout"
+    ],
     "main": "miniprogram_dist/index.js",
     "scripts": {
         "dev": "gulp dev --develop",
