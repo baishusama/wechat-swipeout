@@ -1,4 +1,4 @@
-// const prefix = 'wechat-swipeout__'
+const prefix = 'wechat-swipeout__'
 const MIN_BTN_W = 100 // (rpx)
 const WINDOW_W = wx.getSystemInfoSync().windowWidth // (px)
 
@@ -329,37 +329,64 @@ Component({
       }
       this.triggerEvent('press', eventDetail, eventOption)
     },
-    // (点击|释放)按钮的时候，反转背景色 FIXME: 存在 touch 之后 move view 颜色 toggle 不回来的 bug
+    // (点击|释放)按钮的时候，反转背景色
     toggleBackgroundColor(e) {
-      let hasChanged = false
+      const getToggledButtons = (key, theHash) => {
+        let hasChanged = false
+
+        const buttons = this.data[key].map(button => {
+          const { hash, backgroundColor, underlayColor } = button
+          // 对匹配的按钮做背景色的变化
+          if (hash === theHash && underlayColor !== backgroundColor) {
+            hasChanged = true
+            // ImoNote: 这里使用 `{ ...button, // 覆盖选项 }` 的写法会编译错误
+            return Object.assign(
+              {},
+              button,
+              // 交换背景色
+              {
+                backgroundColor: underlayColor,
+                underlayColor: backgroundColor,
+              }
+            )
+          }
+
+          return button
+        })
+
+        return hasChanged ? buttons : null
+      }
 
       const key = e.currentTarget.dataset.key // 决定哪侧 (left|right)Buttons
       const theHash = e.currentTarget.dataset.hash // 决定哪个按钮
-      const buttons = this.data[key].map(button => {
-        const { hash, backgroundColor, underlayColor } = button
-        // 对匹配的按钮做背景色的变化
-        if (hash === theHash && underlayColor !== backgroundColor) {
-          hasChanged = true
-          // ImoNote: 这里使用 `{ ...button, // 覆盖选项 }` 的写法会编译错误
-          return Object.assign(
-            {},
-            button,
-            // 交换背景色
-            {
-              backgroundColor: underlayColor,
-              underlayColor: backgroundColor,
-            }
-          )
-        }
+      const originalButtons = this.data[key]
+      const toggledButtons = getToggledButtons(key, theHash)
 
-        return button
-      })
-
-      if (hasChanged) {
-        // console.log('toggleBackgroundColor()') // TODO: test to del
+      if (toggledButtons) {
         this.setData({
-          [key]: buttons
+          [key]: toggledButtons
         })
+
+        // 设置一个定时器来判断 .button-hover 何时消失，消失时复原按钮的背景色
+        // ImoNote: 使用默认的 .button-hover 无法 select 到元素，只能自定义 hover-class 了（详见 index.wxml）
+        const intervalId = setInterval(() => {
+          const query = wx.createSelectorQuery().in(this)
+          query.select(`.${prefix}button.${prefix}underlay`).fields({
+            dataset: true
+          })
+          // ImoNote: 即使用 `select` 返回的结果也是一个数组
+          query.exec(([res]) => {
+            // case1. 用户松开了按钮
+            // case2. 用户 hover 了别的按钮
+            // case1 || case2 都需要复原当前按钮的背景色
+            if (res === null || (res && res.dataset.hash !== theHash)) {
+              this.setData({
+                [key]: originalButtons
+              })
+              clearInterval(intervalId)
+            }
+          })
+        }, 300)
       }
     },
     /* “私有”方法 */

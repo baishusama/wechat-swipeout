@@ -58,7 +58,9 @@ npm i -S wechat-swipeout
 
 * fix bugs:
 
-  - [ ] `underlayColor` 状态回不到 `backgroundColor`
+  - [x] 所有类型添加 `wechat-swipeout__` 前缀
+  - [x] `underlayColor` 状态回不到 `backgroundColor`
+  - [ ] 影响列表的下拉刷新操作
   - [ ] `stickTo(Left|Right)Edge` 时，继续拖拽存在抖动
 
 ## API

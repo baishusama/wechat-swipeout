@@ -50,9 +50,17 @@
   position: relative;
 }
 .@{prefix}button {
+  /* 为了遮盖 */
   position: absolute;
   top: 0;
-  /* text-align: center; */
+  /* 为了内容 */
+  display: flex;
+  justify-content: center;
+  /* 为了去边角 */
+  border-radius: 0;
+}
+.@{prefix}button::after {
+  display: none;
 }
 .@{prefix}left .@{prefix}button {
   right: 0;
@@ -62,10 +70,6 @@
 }
 
 /* icon */
-.@{prefix}button {
-  display: flex;
-  justify-content: center;
-}
 .@{prefix}button .@{prefix}icon {
   box-sizing: border-box;
   width: 40rpx;
