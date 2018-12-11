@@ -1,4 +1,7 @@
 <!-- demo's index.wxml -->
+<view class="pull-down-to-refresh">
+  pull down to refresh
+</view>
 <!-- case: 左按钮 -->
 <swipeout class="swipeout" height="120" left-buttons="{{leftButtonList}}" background-color="black" bind:press="onSwipeoutPress" data-index="0">
   <view class="main-content">Swipeout: 左侧按钮 & 手动关闭</view>
