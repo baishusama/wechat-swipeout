@@ -362,7 +362,7 @@ Component({
         })
       }
     },
-    /* 私有方法 */
+    /* “私有”方法 */
     _close() {
       const mainAllShownX = -this.data.leftWidth / 750 * WINDOW_W // (px)
       this.setData({
