@@ -356,6 +356,20 @@ Component({
 
         return hasChanged ? buttons : null
       }
+      const checkSame = (buttons1, buttons2, hash) => {
+        const btn1 = buttons1.find(button => button.hash === hash)
+        const btn2 = buttons2.find(button => button.hash === hash)
+
+        let isHashedButtonSame = true
+        Object.keys(btn1).forEach(key => {
+          if (btn1[key] !== btn2[key]) {
+            isHashedButtonSame = false
+          }
+        })
+
+        // 如果两个数组中匹配 hash 的按钮 backgroundColor,underlayColor 两个属性正好相反、其它属性均一致的话，返回 true
+        return isHashedButtonSame
+      }
 
       const key = e.currentTarget.dataset.key // 决定哪侧 (left|right)Buttons
       const theHash = e.currentTarget.dataset.hash // 决定哪个按钮
@@ -380,13 +394,21 @@ Component({
             // case2. 用户 hover 了别的按钮
             // case1 || case2 都需要复原当前按钮的背景色
             if (res === null || (res && res.dataset.hash !== theHash)) {
-              this.setData({
-                [key]: originalButtons
-              })
+              const againToggledButtons = getToggledButtons(key, theHash)
+              const isTheHashedButtonSame = checkSame(
+                originalButtons,
+                againToggledButtons,
+                theHash
+              )
+              if (isTheHashedButtonSame) {
+                this.setData({
+                  [key]: againToggledButtons
+                })
+              }
               clearInterval(intervalId)
             }
           })
-        }, 300)
+        }, 300) // ImoNote: 时间间隔过小的话也 query 不到元素
       }
     },
     /* “私有”方法 */
