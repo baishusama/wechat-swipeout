@@ -4,5 +4,6 @@
   "editor.tabSize": 2,
   "prettier.tabWidth": 2,
   "prettier.semi": false,
-  "prettier.trailingComma": "es5"
+  "prettier.trailingComma": "es5",
+  "editor.renderControlCharacters": true
 }
