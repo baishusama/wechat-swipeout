@@ -2,9 +2,44 @@
 
 Inspired by [miniprogram-slide-view](https://github.com/wechat-miniprogram/slide-view), [react-native-swipeout](https://github.com/dancormier/react-native-swipeout).
 
-## 效果
+## DEMO
 
-TODO: 将于本周内（2018.12.09 前）制作上传，敬请期待～
+### 手动关闭 or 自动关闭
+
+- 第一个按钮手动地调用了 swipeout 的 `close` 方法
+- 第二个 swipeout 设置了 `auto-close="true"`
+- 最后一个 swipeout 什么也没做
+
+![手动关闭 or 自动关闭](gif/manually-vs-automatically.gif)
+
+### 吸附效果
+
+1. 第一个 swipeout：左不吸附，右吸附
+2. 第二个 swipeout：左不吸附，右不吸附
+3. 第三个 swipeout：左吸附，右不吸附
+4. 第四个 swipeout：左吸附，右吸附
+
+![四个 swipeout 的左侧](gif/four-left-effects.gif) ![四个 swipeout 的右侧](gif/four-right-effects.gif)
+
+### 摩擦系数
+
+摩擦系数决定滑动速度：
+
+![摩擦系数](gif/openleft-openright-close.gif)
+
+### 禁用效果
+
+设置了 `disabled="true"` 的 swipeout，无论开发者调用暴露的“打开”／“关闭”方法，还是用户触摸拖动滑块，都无效：
+
+![禁用效果](gif/disabled.gif)
+
+### 探索更多
+
+以上仅演示部分效果，更多效果可以本地运行 demo 来体验：
+
+1. `git clone git@github.com:baishusama/wechat-swipeout.git && cd wechat-swipeout && npm i && npm run dev`
+2. 使用微信开发者工具打开 `./miniprogram_dev/` 这个 demo 小程序
+3. enjoy it!
 
 ## 使用方法
 
@@ -39,77 +74,55 @@ npm i -S wechat-swipeout
 
 具体接口参见 [API](#api) 小节。
 
-## 概览
-
-主要目标和目前进度：
-
-* basic:
-
-  - [x] movable
-
-* enhance:
-
-  - [x] style: 按钮为遮盖样式
-  - [x] style: 按钮可贴边
-  - [ ] style: 按钮可禁用
-  - [x] behavior: 可设置自动复位
-  - [x] behavior: 也可手动关闭
-  - [x] layout: left middle right
-
-* fix bugs:
-
-  - [x] 所有类型添加 `wechat-swipeout__` 前缀
-  - [x] `underlayColor` 状态回不到 `backgroundColor`
-  - [ ] 影响列表的下拉刷新操作
-  - [ ] `stickTo(Left|Right)Edge` 时，继续拖拽存在抖动
-
 ## API
 
-- Component props
+### 组件整体
 
-  - 组件状态：
+#### 属性
 
-    - [x] `disabled` 禁止滑动（包括调用 close 等方法）
-    - [x] `damping` 阻尼系数，控制动画和过界回弹动画；越大越快
-    - [x] `friction` 摩擦系数，控制滑动速度；越大越快
-    - ~~`sensitivity`~~
-    - ~~`style`~~
+| 属性 | 类型 | 可选 | 默认值 | 描述 |
+|:-----|:-----|:---:|:------|:-----|
+| `width` | number | 可选 | `750` | 主区域宽度 | 
+| `height` | number | 可选 | `0` | 高度 |
+| `background-color` | string | 可选 | `''` | 背景色 |
+| `auto-close` | boolean | 可选 | `false` | 是否点击按钮后自动关闭 |
+| `disabled` | boolean | 可选 | `false` | 禁用状态 |
+| `damping` | number | 可选 | `30` | 阻尼系数，控制动画和过界回弹动画；越大越快 |
+| `friction` | number | 可选 | `10` | 摩擦系数，控制惯性滑动；越大越快 |
 
-  - 行为事件：
+#### 事件
 
-    - [x] `press` 可绑定的事件：点击按钮时触发，会回传按钮数据中的 hash 字段
-    - [x] `autoClose` 表现：是否在按钮点击后自动关闭（复位）
-    - [x] `close`,`openLeft`,`openRight` 可调用的事件
-    - [ ] `onClose`
-    - [ ] `onOpen`
-    - ~~`scroll`~~
+| 事件 | 类型 | 可选 | 默认值 | 描述 |
+|:-----|:-----|:---:|:------|:-----|
+| `press` | method name | 可选 |  | 点击按钮时触发，会回传按钮的 hash 字段 | 
 
-  - 主区域/组件整体：
+#### 暴露的方法
 
-    - [x] `width` 组件主区域宽度
-    - [x] `height` 组件高度
-    - [x] `backgroundColor` 组件背景色
+- `close` 关闭 swipeout
+- `openLeft` 打开 swipeout 的左侧按钮
+- `openRight` 打开 swipeout 的右侧按钮
 
-  - 两侧按钮：
+### 两侧按钮
 
-    - [x] `(left|right)ButtonWidth` 两侧按钮列表
-    - [x] `(left|right)Width` 两侧按钮列表
-    - [x] `(left|right)Buttons` 两侧按钮列表
-    - [x] `stickTo(Left|Right)Edge` 按钮是否吸附边缘
+| 属性 | 类型 | 可选 | 默认值 | 描述 |
+|:-----|:-----|:---:|:------|:-----|
+| `(left|right)ButtonWidth` | number | 可选 | `0` | 左／右侧每个按钮的宽度 | 
+| `(left|right)Width` | number | 可选 | `0` | 左／右侧所有按钮的宽度之和 | 
+| `(left|right)Buttons` | SwipeoutButton[] | 可选 | `null` | 左／右侧按钮列表 | 
+| `stickTo(Left|Right)Edge` | boolean | 可选 | `false` | 左／右侧按钮是否吸附边缘 | 
 
-  - Button props
+#### 关于 `SwipeoutButton` 类型
 
-    - [x] `hash` 必须：点击按钮（`press`）时会回传 hash，以此区分按钮并执行对应事件
-    - [x] `className` 可选：类名，可用于微调样式
-    - [x] `width` 可选：按钮的宽度，单位 rpx
-    - [x] `iconPath` 可选：可以设置 icon 的路径（注意组件构建后位于 `./miniprogram_npm/` 目录下，设置 `iconPath` 时需要考虑进去）
-    - [x] `text` 可选：按钮的文字
-    - [x] `color` 可选：按钮的字体颜色
-    - [x] `backgroundColor` 必须：背景色
-    - [x] `underlayColor` 必须：按钮被点击时的背景色
-    - [ ] `disabled`
-    - ~~`type`~~
-    - ~~`component`~~
+| 属性 | 类型 | 可选 | 默认值 | 描述 |
+|:-----|:-----|:---:|:------|:-----|
+| `hash` | string | 必须 |  | 按钮的唯一标识；点击按钮（`press`）时会回传 hash，可以此区分按钮并执行对应事件 | 
+| `className` | string | 可选 |  | 按钮的类名，可用于微调样式 |
+| `width` | number | 可选 |  | 按钮的宽度，单位 rpx |
+| `iconPath` | string | 可选 |  | 按钮的 icon 的路径；注意，组件构建后位于 `miniprogram_npm/` 目录下，设置 `iconPath` 时需要考虑进去 |
+| `text` | string | 可选 |  | 按钮的文字 |
+| `color` | string | 可选 |  | 按钮的字体颜色 |
+| `backgroundColor` | string | 必须 |  | 按钮的背景色 |
+| `underlayColor` | string | 必须 |  | 按钮被点击时的背景色 |
 
 ## License
 
