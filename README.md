@@ -106,10 +106,10 @@ npm i -S wechat-swipeout
 
 | 属性 | 类型 | 可选 | 默认值 | 描述 |
 |:-----|:-----|:---:|:------|:-----|
-| `(left|right)ButtonWidth` | number | 可选 | `0` | 左／右侧每个按钮的宽度 | 
-| `(left|right)Width` | number | 可选 | `0` | 左／右侧所有按钮的宽度之和 | 
-| `(left|right)Buttons` | SwipeoutButton[] | 可选 | `null` | 左／右侧按钮列表 | 
-| `stickTo(Left|Right)Edge` | boolean | 可选 | `false` | 左／右侧按钮是否吸附边缘 | 
+| `(left\|right)ButtonWidth` | number | 可选 | `0` | 左／右侧每个按钮的宽度 | 
+| `(left\|right)Width` | number | 可选 | `0` | 左／右侧所有按钮的宽度之和 | 
+| `(left\|right)Buttons` | SwipeoutButton[] | 可选 | `null` | 左／右侧按钮列表 | 
+| `stickTo(Left\|Right)Edge` | boolean | 可选 | `false` | 左／右侧按钮是否吸附边缘 | 
 
 #### 关于 `SwipeoutButton` 类型
 
