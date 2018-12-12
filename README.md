@@ -115,14 +115,14 @@ npm i -S wechat-swipeout
 
 | 属性 | 类型 | 可选 | 默认值 | 描述 |
 |:-----|:-----|:---:|:------|:-----|
-| `hash` | string | 必须 |  | 按钮的唯一标识；点击按钮（`press`）时会回传 hash，可以此区分按钮并执行对应事件 | 
-| `className` | string | 可选 |  | 按钮的类名，可用于微调样式 |
-| `width` | number | 可选 |  | 按钮的宽度，单位 rpx |
-| `iconPath` | string | 可选 |  | 按钮的 icon 的路径；注意，组件构建后位于 `miniprogram_npm/` 目录下，设置 `iconPath` 时需要考虑进去 |
-| `text` | string | 可选 |  | 按钮的文字 |
-| `color` | string | 可选 |  | 按钮的字体颜色 |
-| `backgroundColor` | string | 必须 |  | 按钮的背景色 |
-| `underlayColor` | string | 必须 |  | 按钮被点击时的背景色 |
+| `hash` | string | 必须 | - | 按钮的唯一标识；点击按钮（`press`）时会回传 hash，可以此区分按钮并执行对应事件 | 
+| `className` | string | 可选 | - | 按钮的类名，可用于微调样式 |
+| `width` | number | 可选 | - | 按钮的宽度，单位 rpx |
+| `iconPath` | string | 可选 | - | 按钮的 icon 的路径；注意，组件构建后位于 `miniprogram_npm/` 目录下，设置 `iconPath` 时需要考虑进去 |
+| `text` | string | 可选 | - | 按钮的文字 |
+| `color` | string | 可选 | - | 按钮的字体颜色 |
+| `backgroundColor` | string | 必须 | - | 按钮的背景色 |
+| `underlayColor` | string | 必须 | - | 按钮被点击时的背景色 |
 
 ## License
 
