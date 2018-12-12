@@ -1,3 +1,4 @@
+/* 组件内部所有 className 都加上前缀，以防止样式的意外覆盖 */
 @prefix: wechat-swipeout__;
 
 /* 整个滑块是个 flexbox */
@@ -44,7 +45,6 @@
   float: right;
 }
 
-/* TODO:FIXME: 组件内部所有 className 都加上前缀，以防止样式的意外覆盖 */
 /* 呈遮盖样式的按钮 */
 .@{prefix}button-wrapper {
   position: relative;
